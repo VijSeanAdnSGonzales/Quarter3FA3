@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA - Randomizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e3f2fd;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+        }
+        .number-box {
+            display: inline-block;
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background: #bbdefb;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Academical Peak</h1>
+        <p>Click the button to generate your random values and see the story unfold!</p>
+        <button onclick="generateStory()">Generate Random Story</button>
+
+        <div id="results" style="margin-top: 20px;">
+            <div class="number-box" id="ala">ALA: ?</div>
+            <div class="number-box" id="english">English: ?</div>
+            <div class="number-box" id="math">Math: ?</div>
+            <p id="biggestNumber"></p>
+            <p id="nthLetter"></p>
+            <p id="timeBreakdown"></p>
+            <p id="story"></p>
+        </div>
+    </div>
+
+    <script>
+        function generateStory() {
+            const ala = Math.ceil(Math.random() * 20);
+            const english = Math.ceil(Math.random() * 20);
+            const math = Math.ceil(Math.random() * 20);
+
+            document.getElementById('ala').textContent = `ALA: ${ala}`;
+            document.getElementById('english').textContent = `English: ${english}`;
+            document.getElementById('math').textContent = `Math: ${math}`;
+
+            const maxNum = Math.max(ala, english, math);
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const nthLetter = alphabet[ala - 1] || '?';
+            const totalMinutes = english * math;
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+
+            document.getElementById('biggestNumber').innerHTML = `<b>The biggest number is:</b> ${maxNum}`;
+            document.getElementById('nthLetter').innerHTML = `<b>The ${ala}th letter in the alphabet is:</b> ${nthLetter}`;
+            document.getElementById('timeBreakdown').innerHTML = `<b>${english} × ${math} mins:</b> ${totalMinutes} mins (${hours} hr ${minutes} min)`;
+            
+            const story = `
+                <h3>Generated Story</h3>
+                <p>Once upon a time, in the land of knowledge, three students embarked on a learning quest. 
+                Their trials were determined by their subjects: ALA, English, and Math. The greatest challenge was number ${maxNum}, 
+                representing the peak of their academic mountain. The key to their victory was hidden in the letter '${nthLetter}', 
+                and their final exam lasted ${hours} hour(s) and ${minutes} minute(s). Against all odds, they conquered their fears and emerged victorious!</p>
+            `;
+            document.getElementById('story').innerHTML = story;
+        }
+    </script>
+</body>
+</html>
